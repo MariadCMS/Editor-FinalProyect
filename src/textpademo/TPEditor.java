@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
@@ -56,6 +57,7 @@ public class TPEditor {
     private JPopupMenu jPopupMenu;    //instancia de JPopupMenu (menú emergente)
     private JPanel statusBar;         //instancia de JPanel (barra de estado
     NumeroLinea numeroLinea;
+    private JTextPane jTextPane;
  
     private JCheckBoxMenuItem itemLineWrap;         //instancias de algunos items de menú que necesitan ser accesibles
     private JCheckBoxMenuItem itemShowToolBar;
@@ -130,7 +132,7 @@ public class TPEditor {
         undoManager = new UndoManager();                //construye una instancia de UndoManager
         undoManager.setLimit(50);                       //le asigna un límite al buffer de ediciones
  
-        buildTextArea();     //construye el área de edición, es importante que esta sea la primera parte en construirse
+        buildTextPane();     //construye el área de edición, es importante que esta sea la primera parte en construirse
         buildMenuBar();      //construye la barra de menú
         buildToolBar();      //construye la barra de herramientas
         buildStatusBar();    //construye la barra de estado
@@ -140,11 +142,16 @@ public class TPEditor {
         jFrame.setJMenuBar(jMenuBar);                              //designa la barra de menú del JFrame
         Container c = jFrame.getContentPane();                     //obtiene el contendor principal
         c.add(jToolBar, BorderLayout.NORTH);                       //añade la barra de herramientas, orientación NORTE del contendor
-        numeroLinea = new NumeroLinea(jTextArea);     
-        JScrollPane jpanel = new JScrollPane(jTextArea);
-        jpanel.setRowHeaderView(numeroLinea);
-        c.add(jpanel, BorderLayout.CENTER);    //añade el area de edición en el CENTRO
+       // numeroLinea = new NumeroLinea(jTextArea);     
+       // JScrollPane jpanel = new JScrollPane(jTextArea);
+       // jpanel.setRowHeaderView(numeroLinea);
+      //  c.add(jpanel, BorderLayout.CENTER);    //añade el area de edición en el CENTRO
         //c.add(new JScrollPane.(numeroLinea),BorderLayout.WEST);
+        jTextPane=new JTextPane();
+        numeroLinea = new NumeroLinea(jTextPane);     
+        JScrollPane jpanel = new JScrollPane(jTextPane);
+        jpanel.setRowHeaderView(numeroLinea);
+        c.add(jpanel,BorderLayout.CENTER);
         c.add(statusBar, BorderLayout.SOUTH);                      //añade la barra de estado, orientación SUR
         //lineas
  
@@ -159,26 +166,25 @@ public class TPEditor {
     /**
      * Construye el área de edición.
      */
-    private void buildTextArea() {
-        jTextArea = new JTextArea();    //construye un JTextArea
-        
+    private void buildTextPane() {
+        jTextPane = new JTextPane();    //construye un JTextArea
+        // BUSCAR LOS METODOS PARA EL PANE PORQUE SI SON NECESARIOS
         //se configura por defecto para que se ajusten las líneas al tamaño del área de texto ...
-        jTextArea.setLineWrap(true);
+        //jTextPane.setl.setLineWrap(true);
         //... y que se respete la integridad de las palaras en el ajuste
-        jTextArea.setWrapStyleWord(true);
-        //agregar conteo de lineas
-        
+   //     jTextArea.setWrapStyleWord(true);
+     
         //asigna el manejador de eventos para el cursor
-        jTextArea.addCaretListener(eventHandler);
+        jTextPane.addCaretListener(eventHandler);
         //asigna el manejador de eventos para el ratón
-        jTextArea.addMouseListener(eventHandler);
+        jTextPane.addMouseListener(eventHandler);
         //asigna el manejador de eventos para registrar los cambios sobre el documento
-        jTextArea.getDocument().addUndoableEditListener(eventHandler);
+        jTextPane.getDocument().addUndoableEditListener(eventHandler);
  
         //remueve las posibles combinaciones de teclas asociadas por defecto con el JTextArea
-        jTextArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + X ("Cortar")
-        jTextArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + C ("Copiar")
-        jTextArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + V ("Pegar")
+        jTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + X ("Cortar")
+        jTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + C ("Copiar")
+        jTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + V ("Pegar")
     }
  
     /**
@@ -641,8 +647,8 @@ public class TPEditor {
      *
      * @return retorna el área de edición.
      */
-    JTextArea getJTextArea() {
-        return jTextArea;
+    JTextPane getJTextPane() {
+        return jTextPane;
     }
  
     /**
@@ -763,8 +769,6 @@ public class TPEditor {
                 actionPerformer.actionSelectFontColor();
             } else if (ac.equals("cmd_backgroundcolor") == true) {    //opción seleccionada: "Color de fondo"
                 actionPerformer.actionSelectBackgroundColor();
-            } else if (ac.equals("cmd_arbol") == true) {    //opción seleccionada: "Color de fondo"
-                actionPerformer.actionGrafic();
             } else if (ac.equals("cmd_about") == true) {    //opción seleccionada: "Acerca de"
                 //presenta un dialogo modal con alguna informacion
                 JOptionPane.showMessageDialog(jFrame,
@@ -772,7 +776,6 @@ public class TPEditor {
                                               "Acerca de",
                                               JOptionPane.INFORMATION_MESSAGE);
             }
-            
         }
  
         /**
