@@ -448,8 +448,7 @@ public class ActionPerformer {
      */
     public void actionGrafic(){
         
-     view_grafic frm = new view_grafic();
-        frm.show();     
+    //clase de GraficArbol     
         
     }
     /**
