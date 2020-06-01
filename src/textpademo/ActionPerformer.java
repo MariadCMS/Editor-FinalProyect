@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.text.BadLocationException;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
-import textpademo.view_grafic;
+
  
 /**
  * Clase que ejecuta las operaciones solicitadas.
