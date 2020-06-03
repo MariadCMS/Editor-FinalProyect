@@ -52,7 +52,7 @@ public class ColorLetras {
         appendToPane(tPane, "My Name is Too Good.\n", Color.RED);
         appendToPane(tPane, "I wish I could be ONE of THE BEST on ", Color.BLUE);
         appendToPane(tPane, "Stack", Color.DARK_GRAY);
-        appendToPane(tPane, "Over", Color.Magenta);
+        appendToPane(tPane, "Over", Color.GREEN);
         appendToPane(tPane, "flow", Color.ORANGE);
 
         getContentPane().add(topPanel);
@@ -103,7 +103,3 @@ public class ColorLetras {
     }
 }
         
-    }
-    
-    
-}
