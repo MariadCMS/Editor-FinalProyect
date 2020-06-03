@@ -12,6 +12,9 @@ import javax.swing.JTextPane;
 import Java.awt.*;
 
 import Java.awt.event.*;
+import static com.sun.glass.ui.Cursor.setVisible;
+import java.awt.Color;
+import java.awt.Insets;
 
 import javax.swing.*;
 
@@ -81,6 +84,22 @@ public class ColorLetras {
                     new ColorLetras();
                 }
             });
+    }
+
+    private void setDefaultCloseOperation(int EXIT_ON_CLOSE) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void setLocationRelativeTo(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Object getContentPane() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void pack() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
         
