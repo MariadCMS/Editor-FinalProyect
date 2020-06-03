@@ -312,7 +312,103 @@ public class ActionPerformer {
      * 
      * Busca el texto de la última búsqueda en el documento actual.
      */
-    public void actionSearchNext() {
+
+     public void actionSearch(String textToFind, int ignorecase, int findCounter) throws IOException{
+    // findCounter = 0 or 1. 0 represents find and 1 represents findCounter.
+    String Current2;
+        Current2 = tpEditor.jTextPane.getText();
+    if(findCounter ==0){
+
+        if(textToFind == null){
+            JOptionPane.showMessageDialog(null, "Por Favor Ingrese el Texto a Buscar.", "Error", 0);
+        }
+        else if(textToFind.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por Favor Ingrese el Texto a Buscar.", "Error", 0);
+        }
+        else{
+            // Use any Character. But I a suggest to use a character from an Encrypted file.
+            String Replacer = "¥";
+            String CurrentText = tpEditor.jTextPane.getText();
+            if(ignorecase==1){
+                CurrentText = CurrentText.toLowerCase();
+                textToFind = textToFind.toLowerCase();
+            }
+            int counter = 0;
+            StringReader readtext = new StringReader(CurrentText);
+            BufferedReader readBuffer = new BufferedReader(readtext);
+            try {
+                String Line = readBuffer.readLine();
+                int found = 0;
+                while(Line!=null || found != 1){
+                    if(Line.contains(textToFind)){
+                        Line = null;
+                        found = 1;
+                    }
+                    if(Line!=null){
+                        Line = readBuffer.readLine();
+                        counter = counter + 1;
+                    }
+                }
+                if(found == 1){
+                    tpEditor.jTextPane.setSelectionStart(CurrentText.indexOf(textToFind) - counter);
+                    tpEditor.jTextPane.setSelectionEnd(CurrentText.indexOf(textToFind) + textToFind.length() - counter);
+                    int counter2 = 1;
+                    while(counter2!=textToFind.length()){
+                        Replacer = Replacer + "¥";
+                        counter2 = counter2 + 1;
+                    }
+                    CurrentText = CurrentText.replaceFirst(textToFind, Replacer);
+                    findCounter = 1;
+                            }
+                else{
+                    JOptionPane.showMessageDialog(null, "No hay coincidencias! ", "Message", 0);    
+                    }
+
+                }
+                catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }  catch(NullPointerException e){
+                JOptionPane.showMessageDialog(null, "No hay coincidencias! ", "Message", 0);
+            }
+            }
+        }
+
+    else{
+        int counter = 0;
+        String CurrentText = null;
+        StringReader readtext = new StringReader(CurrentText);
+        BufferedReader readBuffer = new BufferedReader(readtext);
+        try {
+            String Line = readBuffer.readLine();
+            int found = 0;
+            while(Line!=null || found != 1){
+                if(Line.contains(textToFind)){
+                    Line = null;
+                    found = 1;
+                }
+                if(Line!=null){
+                    Line = readBuffer.readLine();
+                    counter = counter + 1;
+                }
+            }
+            if(found == 1){
+                tpEditor.jTextPane.setSelectionStart(CurrentText.indexOf(textToFind) - counter);
+                tpEditor.jTextPane.setSelectionEnd(CurrentText.indexOf(textToFind) + textToFind.length() - counter);
+                String Replacer = null;
+                CurrentText = CurrentText.replaceFirst(textToFind, Replacer);
+                        }
+            else{
+                JOptionPane.showMessageDialog(null, "No hay coincidencias! ", "Message", 0);    
+                }
+            } catch(NullPointerException e){
+                JOptionPane.showMessageDialog(null, "No hay coincidencias.", "Message", 0);    
+                }
+            }
+    }
+
+
+    /*public void actionSearchNext() {
         if (lastSearch.length() > 0) {    //si la última búsqueda contiene texto
             String textAreaContent = tpEditor.getJTextArea().getText();    //se obtiene todo el contenido del área de edición
             int pos = tpEditor.getJTextArea().getCaretPosition();    //se obtiene la posición del cursor sobre el área de edición
@@ -324,9 +420,9 @@ public class ActionPerformer {
                 tpEditor.getJTextArea().select(pos, pos + lastSearch.length());
             }
         } else {    //si la última búsqueda no contiene nada
-            actionSearch();    //invoca el método actionSearch()
+            //actionSearch();    //invoca el método actionSearch()
         }
-    }
+    }*/
     
     /**
      * Opción seleccionada: "Remplazar".
@@ -448,6 +544,8 @@ public class ActionPerformer {
      */
     public void actionGrafic(){
         
+     view_grafic frm = new view_grafic();
+        frm.show();     
         
     }
     /**
