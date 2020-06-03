@@ -60,7 +60,7 @@ public class ActionPerformer {
         tpEditor.getJFrame().setTitle("Editor_Grupo5 - Sin Título");    //nuevo título de la ventana
  
         //limpia el contenido del area de edición
-        tpEditor.getJTextArea().setText("");
+        tpEditor.getJTextPane().setText("");
         //limpia el contenido de las etiquetas en la barra de estado
         tpEditor.getJLabelFilePath().setText("");
         tpEditor.getJLabelFileSize().setText("");
@@ -106,10 +106,10 @@ public class ActionPerformer {
                 //abre un flujo de datos desde el archivo seleccionado
                 BufferedReader br = new BufferedReader(new FileReader(f));
                 //lee desde el flujo de datos hacia el area de edición
-                tpEditor.getJTextArea().read(br, null);
+                tpEditor.getJTextPane().read(br, null);
                 br.close();    //cierra el flujo
  
-                tpEditor.getJTextArea().getDocument().addUndoableEditListener(tpEditor.getEventHandler());
+                tpEditor.getJTextPane().getDocument().addUndoableEditListener(tpEditor.getEventHandler());
  
                 tpEditor.getUndoManager().die();    //se limpia el buffer del administrador de edición
                 tpEditor.updateControls();          //se actualiza el estado de las opciones "Deshacer" y "Rehacer"
@@ -149,7 +149,7 @@ public class ActionPerformer {
                 //abre un flujo de datos hacia el archivo asociado al documento actual
                 BufferedWriter bw = new BufferedWriter(new FileWriter(tpEditor.getCurrentFile()));
                 //escribe desde el flujo de datos hacia el archivo
-                tpEditor.getJTextArea().write(bw);
+                tpEditor.getJTextPane().write(bw);
                 bw.close();    //cierra el flujo
  
                 //marca el estado del documento como no modificado
@@ -181,7 +181,7 @@ public class ActionPerformer {
                 //abre un flujo de datos hacia el archivo asociado seleccionado
                 BufferedWriter bw = new BufferedWriter(new FileWriter(f));
                 //escribe desde el flujo de datos hacia el archivo
-                tpEditor.getJTextArea().write(bw);
+                tpEditor.getJTextPane().write(bw);
                 bw.close();    //cierra el flujo
  
                 //nuevo título de la ventana con el nombre del archivo guardado
@@ -215,9 +215,9 @@ public class ActionPerformer {
         boolean result = false;    //resultado de la impresión, por defecto es false
  
         //si el documento actual no esta vacío
-        if (tpEditor.getJTextArea().getText().trim().equals("") == false) {
+        if (tpEditor.getJTextPane().getText().trim().equals("") == false) {
             //invoca nuestra la clase PrintAction para presentar el dialogo de impresión
-            result = PrintAction.print(tpEditor.getJTextArea(), tpEditor.getJFrame());
+            result = PrintAction.print(tpEditor.getJTextPane(), tpEditor.getJFrame());
         }
     }
  
@@ -448,7 +448,8 @@ public class ActionPerformer {
      */
     public void actionGrafic(){
         
-    //clase de GraficArbol     
+     view_grafic frm = new view_grafic();
+        frm.show();     
         
     }
     /**
@@ -459,8 +460,6 @@ public class ActionPerformer {
     public void actionRun(){
         
         //opcion de correr el HTML
-        
-        
         
     }
     
