@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.regex.Pattern;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -294,12 +295,12 @@ public class ActionPerformer {
                 JOptionPane.QUESTION_MESSAGE);
  
         if (text != null) {    //si se introdujo texto (puede ser una cadena vacía)
-            String textAreaContent = tpEditor.getJTextArea().getText();    //obtiene todo el contenido del área de edición
+            String textAreaContent = tpEditor.getJTextPane().getText();    //obtiene todo el contenido del área de edición
             int pos = textAreaContent.indexOf(text);    //obtiene la posición de la primera ocurrencia del texto
  
             if (pos > -1) {    //si la posición es mayor a -1 significa que la búsqueda fue positiva
                 //selecciona el texto en el área de edición para resaltarlo
-                tpEditor.getJTextArea().select(pos, pos + text.length());
+                tpEditor.getJTextPane().select(pos, pos + text.length());
             }
  
             //establece el texto buscado como el texto de la última búsqueda realizada
@@ -410,14 +411,14 @@ public class ActionPerformer {
 
     /*public void actionSearchNext() {
         if (lastSearch.length() > 0) {    //si la última búsqueda contiene texto
-            String textAreaContent = tpEditor.getJTextArea().getText();    //se obtiene todo el contenido del área de edición
-            int pos = tpEditor.getJTextArea().getCaretPosition();    //se obtiene la posición del cursor sobre el área de edición
+            String textAreaContent = tpEditor.getJTextPane().getText();    //se obtiene todo el contenido del área de edición
+            int pos = tpEditor.getJTextPane().getCaretPosition();    //se obtiene la posición del cursor sobre el área de edición
             //buscando a partir desde la posición del cursor, se obtiene la posición de la primera ocurrencia del texto
             pos = textAreaContent.indexOf(lastSearch, pos);
  
             if (pos > -1) {    //si la posición es mayor a -1 significa que la búsqueda fue positiva
                 //selecciona el texto en el área de edición para resaltarlo
-                tpEditor.getJTextArea().select(pos, pos + lastSearch.length());
+                tpEditor.getJTextPane().select(pos, pos + lastSearch.length());
             }
         } else {    //si la última búsqueda no contiene nada
             //actionSearch();    //invoca el método actionSearch()
@@ -437,12 +438,12 @@ public class ActionPerformer {
                 JOptionPane.QUESTION_MESSAGE);
         
         if (text != null) {    //si se introdujo texto (puede ser una cadena vacía)
-            String textAreaContent = tpEditor.getJTextArea().getText();    //obtiene todo el contenido del área de edición
+            String textAreaContent = tpEditor.getJTextPane().getText();    //obtiene todo el contenido del área de edición
             int pos = textAreaContent.indexOf(text);    //obtiene la posición de la primera ocurrencia del texto
  
             if (pos > -1) {    //si la posición es mayor a -1 significa que la búsqueda fue positiva
                 //selecciona el texto en el área de edición para resaltarlo
-                tpEditor.getJTextArea().select(pos, pos + text.length());
+                tpEditor.getJTextPane().select(pos, pos + text.length());
                 
                 String replace = JOptionPane.showInputDialog(
                 tpEditor.getJFrame(),
@@ -451,7 +452,7 @@ public class ActionPerformer {
                 JOptionPane.QUESTION_MESSAGE);
                 
                text=replace;
-               tpEditor.getJTextArea().replaceSelection(text);
+               tpEditor.getJTextPane().replaceSelection(text);
             }
             
             //establece el texto buscado como el texto de la última búsqueda realizada
@@ -477,9 +478,9 @@ public class ActionPerformer {
                 int pos = Integer.parseInt(line);    //el dato introducido se convierte en entero
  
                 //si el número de línea esta dentro de los límites del área de texto
-                if (pos >= 0 && pos <= tpEditor.getJTextArea().getLineCount()) {
+                if (pos >= 0 && pos <= tpEditor.getJTextPane().getLineCount()) {
                     //posiciona el cursor en el inicio de la línea
-                    tpEditor.getJTextArea().setCaretPosition(tpEditor.getJTextArea().getLineStartOffset(pos));
+                    tpEditor.getJTextPane().setCaretPosition(tpEditor.getJTextPane().getLineStartOffset(pos));
                 }
             } catch (NumberFormatException ex) {    //en caso de que ocurran excepciones
                 System.err.println(ex);
@@ -498,10 +499,10 @@ public class ActionPerformer {
         //presenta el dialogo de selección de fuentes
         Font font = JFontChooser.showDialog(tpEditor.getJFrame(),
                                             "Fuente de letra:",
-                                            tpEditor.getJTextArea().getFont());
+                                            tpEditor.getJTextPane().getFont());
         if (font != null) {    //si un fuente fue seleccionado
             //se establece como fuente del area de edición
-            tpEditor.getJTextArea().setFont(font);
+            tpEditor.getJTextPane().setFont(font);
         }
     }
  
@@ -514,11 +515,11 @@ public class ActionPerformer {
         //presenta el dialogo de selección de colores
         Color color = JColorChooser.showDialog(tpEditor.getJFrame(),
                                                "Color de letra:",
-                                               tpEditor.getJTextArea().getForeground());
+                                               tpEditor.getJTextPane().getForeground());
         if (color != null) {    //si un color fue seleccionado
             //se establece como color del fuente y cursor
-            tpEditor.getJTextArea().setForeground(color);
-            tpEditor.getJTextArea().setCaretColor(color);
+            tpEditor.getJTextPane().setForeground(color);
+            tpEditor.getJTextPane().setCaretColor(color);
         }
     }
  
@@ -531,10 +532,10 @@ public class ActionPerformer {
         //presenta el dialogo de selección de colores
         Color color = JColorChooser.showDialog(tpEditor.getJFrame(),
                                                "Color de fondo:",
-                                               tpEditor.getJTextArea().getForeground());
+                                               tpEditor.getJTextPane().getForeground());
         if (color != null) {    //si un color fue seleccionado
             //se establece como color de fondo
-            tpEditor.getJTextArea().setBackground(color);
+            tpEditor.getJTextPane().setBackground(color);
         }
     }
     /**
@@ -544,8 +545,19 @@ public class ActionPerformer {
      */
     public void actionGrafic(){
         
-     view_grafic frm = new view_grafic();
-        frm.show();     
+    }   
+
+    private JFileChooser getJFileChooser() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private String shortPathName(String absolutePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private String roundFileSize(long length) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
         
     }
     /**
