@@ -565,12 +565,7 @@ public class ActionPerformer {
      * 
      * Le permite al usuario visualizar el resultado de el HTML
      */
-    public void actionRun(){
-        
-        //opcion de correr el HTML
-        
-    }
-    
+   
     
     
  
@@ -597,7 +592,7 @@ public class ActionPerformer {
         @Override
         public boolean accept(File f) {
             //acepta directorios y archivos de extensión .txt
-            return f.isDirectory() || f.getName().toLowerCase().endsWith("txt");
+            return f.isDirectory() || f.getName().toLowerCase().endsWith("txt || html");
         }
  
         @Override
