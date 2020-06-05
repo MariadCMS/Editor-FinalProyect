@@ -314,7 +314,7 @@ public class ActionPerformer {
      * Busca el texto de la última búsqueda en el documento actual.
      */
 
-     public void actionSearch(String textToFind, int ignorecase, int findCounter) throws IOException{
+    /* public void actionSearchNext(String textToFind, int ignorecase, int findCounter) throws IOException{
     // findCounter = 0 or 1. 0 represents find and 1 represents findCounter.
     String Current2;
         Current2 = tpEditor.jTextPane.getText();
@@ -406,10 +406,10 @@ public class ActionPerformer {
                 JOptionPane.showMessageDialog(null, "No hay coincidencias.", "Message", 0);    
                 }
             }
-    }
+    } 
+ */
 
-
-    /*public void actionSearchNext() {
+    public void actionSearchNext() {
         if (lastSearch.length() > 0) {    //si la última búsqueda contiene texto
             String textAreaContent = tpEditor.getJTextPane().getText();    //se obtiene todo el contenido del área de edición
             int pos = tpEditor.getJTextPane().getCaretPosition();    //se obtiene la posición del cursor sobre el área de edición
@@ -423,7 +423,7 @@ public class ActionPerformer {
         } else {    //si la última búsqueda no contiene nada
             //actionSearch();    //invoca el método actionSearch()
         }
-    }*/
+    }
     
     /**
      * Opción seleccionada: "Remplazar".
@@ -545,28 +545,9 @@ public class ActionPerformer {
      */
     public void actionGrafic(){
         
-    }   
-
-    private JFileChooser getJFileChooser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private String shortPathName(String absolutePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private String roundFileSize(long length) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-        
-    }
-    /**
-     * Opción seleccionada: "RUN".
-     * 
-     * Le permite al usuario visualizar el resultado de el HTML
-     */
-   
+    } 
     
+   
     
  
     /**
@@ -592,7 +573,7 @@ public class ActionPerformer {
         @Override
         public boolean accept(File f) {
             //acepta directorios y archivos de extensión .txt
-            return f.isDirectory() || f.getName().toLowerCase().endsWith("txt || html");
+            return f.isDirectory() || f.getName().toLowerCase().endsWith("txt");
         }
  
         @Override
