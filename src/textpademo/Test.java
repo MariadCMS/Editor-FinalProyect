@@ -14,6 +14,10 @@ import java.awt.*;
 import javax.swing.text.*;
 
 public class Test extends JFrame {
+
+    Test(JTextPane jTextPane) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private int findLastNonWordChar (String text, int index) {
         while (--index >= 0) {
             if (String.valueOf(text.charAt(index)).matches("\\W")) {
@@ -39,7 +43,7 @@ public class Test extends JFrame {
         setLocationRelativeTo(null);
 
         final StyleContext cont = StyleContext.getDefaultStyleContext();
-        final AttributeSet attr = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.RED);
+        final AttributeSet attr = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLUE);
         final AttributeSet attrBlack = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
         DefaultStyledDocument doc = new DefaultStyledDocument() {
             public void insertString (int offset, String str, AttributeSet a) throws BadLocationException {
